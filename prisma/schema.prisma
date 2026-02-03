@@ -1,0 +1,28 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+// Единственная гибкая модель: всё в data (JSON)
+// section = где показывать (films | projects | works)
+// order = порядок вывода
+// data = { titleRus, titleEng, descriptionRus, descriptionEng, imageRus, imageEng, youtubeUrl1, youtubeUrl2, ... }
+model ContentBlock {
+  id        String   @id @default(uuid())
+  section   String   // "films" | "projects" | "works"
+  order     Int      // порядок в секции
+  type      String   @default("item") // "item" | "image" | "text" | "youtube" | "gallery" ...
+  data      String   @db.Text // JSON: title, description, image, youtube и любые другие поля
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([section])
+  @@index([section, order])
+}
