@@ -30,7 +30,7 @@ const Contact: React.FC = () => {
               </div>
               <div>
                 <span className="block text-[10px] uppercase tracking-widest text-zinc-500">Email</span>
-                <span className="text-lg font-bold">studio@turmaham.com</span>
+                <span className="text-lg font-bold">studio@tsugi.com</span>
               </div>
             </div>
             <div className="flex items-center space-x-6 group">

@@ -19,8 +19,8 @@ const About: React.FC = () => {
           </h2>
           <p className="text-zinc-400 text-lg leading-relaxed mb-6">
             {lang === 'en' 
-              ? 'Turmaham is more than a name; it is a philosophy of light. Founded in 2018, we have dedicated ourselves to capturing the fleeting moments of existence through high-contrast photography and cinematic motion.'
-              : 'Turmaham — это не просто имя, это философия света. Основанная в 2018 году, наша студия посвятила себя фиксации мимолетных мгновений бытия через высококонтрастную фотографию и кинематографичное движение.'}
+              ? 'Tsugi is more than a name; it is a philosophy of light. Founded in 2018, we have dedicated ourselves to capturing the fleeting moments of existence through high-contrast photography and cinematic motion.'
+              : 'Tsugi — это не просто имя, это философия света. Основанная в 2018 году, наша студия посвятила себя фиксации мимолетных мгновений бытия через высококонтрастную фотографию и кинематографичное движение.'}
           </p>
           <p className="text-zinc-400 text-lg leading-relaxed">
             {lang === 'en'

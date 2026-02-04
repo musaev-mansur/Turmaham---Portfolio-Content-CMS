@@ -14,11 +14,13 @@ export const translations: Record<'en' | 'ru', TranslationSet> = {
     common: {
       back: 'Go Back',
       readMore: 'Read More',
+      loading: 'Loading...',
+      loadError: 'Failed to load',
+      noContent: 'No content yet',
     },
     home: {
-      heroTitle: 'TURMAHAM',
-      heroSubtitle: 'CAPTURING THE ESSENCE OF TIME THROUGH LIGHT AND MOTION',
-      cta: 'Explore Films',
+      heroTitle: 'TSUGI',
+      cta: 'About Me',
     },
     films: {
       versions: 'Select Version',
@@ -58,11 +60,13 @@ export const translations: Record<'en' | 'ru', TranslationSet> = {
     common: {
       back: 'Назад',
       readMore: 'Подробнее',
+      loading: 'Загрузка...',
+      loadError: 'Не удалось загрузить раздел',
+      noContent: 'Пока нет материалов',
     },
     home: {
-      heroTitle: 'TURMAHAM',
-      heroSubtitle: 'ЗАПЕЧАТЛЕВАЯ СУТЬ ВРЕМЕНИ ЧЕРЕЗ СВЕТ И ДВИЖЕНИЕ',
-      cta: 'Смотреть фильмы',
+      heroTitle: 'TSUGI',
+      cta: 'Обо Мне',
     },
     films: {
       versions: 'Выбор версии',

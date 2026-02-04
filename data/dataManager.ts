@@ -31,15 +31,15 @@ const INITIAL_WORKS: Work[] = [
 
 export const DataManager = {
   get: <T>(key: 'films' | 'projects' | 'works'): T[] => {
-    const data = localStorage.getItem(`turmaham_${key}`);
+    const data = localStorage.getItem(`tsugi_${key}`);
     if (!data) {
       const initial = key === 'films' ? INITIAL_FILMS : key === 'projects' ? INITIAL_PROJECTS : INITIAL_WORKS;
-      localStorage.setItem(`turmaham_${key}`, JSON.stringify(initial));
+      localStorage.setItem(`tsugi_${key}`, JSON.stringify(initial));
       return initial as unknown as T[];
     }
     return JSON.parse(data);
   },
   save: (key: 'films' | 'projects' | 'works', items: any[]) => {
-    localStorage.setItem(`turmaham_${key}`, JSON.stringify(items));
+    localStorage.setItem(`tsugi_${key}`, JSON.stringify(items));
   }
 };

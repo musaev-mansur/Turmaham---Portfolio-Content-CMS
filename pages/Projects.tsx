@@ -4,10 +4,13 @@ import { blocksAPI } from '../utils/api';
 import { blocksToItems } from '../utils/dataTransform';
 import { toEmbedUrl } from '../utils/youtube';
 import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations';
 import { ChevronRight } from 'lucide-react';
+import FlexibleFieldsRenderer from '../components/FlexibleFieldsRenderer';
 
 const Projects: React.FC = () => {
   const { lang } = useLanguage();
+  const t = translations[lang];
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
@@ -21,7 +24,7 @@ const Projects: React.FC = () => {
         setItems(blocksToItems(raw, lang));
       } catch (e) {
         console.error('Error loading projects:', e);
-        setError(lang === 'ru' ? 'Не удалось загрузить раздел' : 'Failed to load');
+        setError(t.common.loadError);
       } finally {
         setLoading(false);
       }
@@ -32,8 +35,8 @@ const Projects: React.FC = () => {
   if (loading) {
     return (
       <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
-        <h1 className="text-6xl font-oswald uppercase tracking-tighter mb-16 text-center">Projects</h1>
-        <p className="text-center text-zinc-500">Loading...</p>
+        <h1 className="text-6xl font-oswald uppercase tracking-tighter mb-16 text-center">{t.nav.projects}</h1>
+        <p className="text-center text-zinc-500">{t.common.loading}</p>
       </div>
     );
   }
@@ -41,7 +44,7 @@ const Projects: React.FC = () => {
   if (error) {
     return (
       <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
-        <h1 className="text-6xl font-oswald uppercase tracking-tighter mb-16 text-center">Projects</h1>
+        <h1 className="text-6xl font-oswald uppercase tracking-tighter mb-16 text-center">{t.nav.projects}</h1>
         <p className="text-center text-red-400/80">{error}</p>
       </div>
     );
@@ -49,10 +52,10 @@ const Projects: React.FC = () => {
 
   return (
     <div className="pt-32 pb-20 px-6 max-w-7xl mx-auto">
-      <h1 className="text-6xl font-oswald uppercase tracking-tighter mb-16 text-center">Projects</h1>
+      <h1 className="text-6xl font-oswald uppercase tracking-tighter mb-16 text-center">{t.nav.projects}</h1>
       {items.length === 0 ? (
         <p className="text-center text-zinc-500 uppercase tracking-widest text-sm">
-          {lang === 'ru' ? 'Пока нет материалов' : 'No content yet'}
+          {t.common.noContent}
         </p>
       ) : (
       <div className="space-y-2">
@@ -108,28 +111,34 @@ const Projects: React.FC = () => {
                   >
                     <div className="p-6 flex flex-row flex-nowrap items-start gap-8 border-t border-white/10">
                       <div className="flex-shrink basis-[75%] space-y-4 min-w-0">
-                        {item.image && (
-                          <img
-                            src={item.image}
-                            alt={item.title[lang]}
-                            className="w-full max-h-[60vh] object-cover grayscale hover:grayscale-0 transition-all duration-700 border border-white/5"
-                          />
-                        )}
-                        <h3 className="text-xl font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap">
-                          {item.title[lang]}
-                        </h3>
-                        <p className="text-zinc-400 leading-relaxed text-lg whitespace-pre-wrap">
-                          {item.description[lang]}
-                        </p>
-                        {item.videoUrl && (
-                          <div className="aspect-video w-full bg-black border border-white/5">
-                            <iframe
-                              src={toEmbedUrl(item.videoUrl)}
-                              className="w-full h-full"
-                              allow="autoplay; fullscreen"
-                              title={item.title[lang]}
-                            />
-                          </div>
+                        {item.fields && item.fields.length > 0 ? (
+                          <FlexibleFieldsRenderer fields={item.fields} lang={lang} className="text-lg" />
+                        ) : (
+                          <>
+                            {item.image && (
+                              <img
+                                src={item.image}
+                                alt={item.title[lang]}
+                                className="w-full max-h-[60vh] object-cover grayscale hover:grayscale-0 transition-all duration-700 border border-white/5"
+                              />
+                            )}
+                            <h3 className="text-xl font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap">
+                              {item.title[lang]}
+                            </h3>
+                            <p className="text-zinc-400 leading-relaxed text-lg whitespace-pre-wrap">
+                              {item.description[lang]}
+                            </p>
+                            {item.videoUrl && (
+                              <div className="aspect-video w-full bg-black border border-white/5">
+                                <iframe
+                                  src={toEmbedUrl(item.videoUrl)}
+                                  className="w-full h-full"
+                                  allow="autoplay; fullscreen"
+                                  title={item.title[lang]}
+                                />
+                              </div>
+                            )}
+                          </>
                         )}
                         <div className="w-20 h-px bg-white/20" />
                       </div>

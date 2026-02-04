@@ -12,7 +12,7 @@ const Footer: React.FC = () => {
     <footer className="border-t border-white/10 py-12 px-6 bg-black">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
         <div className="text-xl font-oswald font-bold tracking-tighter">
-          TURMAHAM
+          TSUGI
         </div>
         
         <div className="flex space-x-8 text-[10px] uppercase tracking-[0.3em] font-bold text-zinc-500">
@@ -21,8 +21,8 @@ const Footer: React.FC = () => {
         </div>
 
         <div className="flex space-x-6 items-center">
-          <span className="w-8 h-[1px] bg-white/20" />
-          <span className="text-[10px] uppercase tracking-widest text-zinc-500">Curated in Berlin</span>
+          {/* <span className="w-8 h-[1px] bg-white/20" />
+          <span className="text-[10px] uppercase tracking-widest text-zinc-500"></span> */}
         </div>
       </div>
     </footer>

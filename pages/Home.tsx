@@ -1,6 +1,5 @@
 
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
@@ -12,7 +11,7 @@ const Home: React.FC = () => {
   const y1 = useTransform(scrollY, [0, 500], [0, 200]);
   const opacity = useTransform(scrollY, [0, 300], [1, 0]);
 
-  const brandName = "TURMAHAM";
+  const brandName = "TSUGI";
 
   return (
     <main className="relative h-[150vh] w-full bg-black overflow-x-hidden">
@@ -54,7 +53,6 @@ const Home: React.FC = () => {
             transition={{ duration: 1.5, delay: 1 }}
             className="text-zinc-400 font-oswald tracking-[0.5em] text-[10px] md:text-sm mb-12 max-w-xl mx-auto uppercase"
           >
-            {t.home.heroSubtitle}
           </motion.p>
           
           <motion.div
@@ -62,15 +60,16 @@ const Home: React.FC = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 1.5 }}
           >
-            <Link
-              to="/projects"
+            <button
+              type="button"
+              onClick={() => document.getElementById('the-unseen')?.scrollIntoView({ behavior: 'smooth' })}
               className="group relative inline-block px-12 py-5 border border-white/20 text-white uppercase font-bold tracking-widest overflow-hidden"
             >
               <span className="relative z-10 group-hover:text-black transition-colors duration-500">{t.home.cta}</span>
               <motion.div 
                 className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-[0.16, 1, 0.3, 1]"
               />
-            </Link>
+            </button>
           </motion.div>
         </motion.div>
 
@@ -89,7 +88,7 @@ const Home: React.FC = () => {
       </div>
 
       {/* Second section hint */}
-      <div className="h-screen bg-black flex items-center justify-center">
+      <div id="the-unseen" className="h-screen bg-black flex items-center justify-center">
           <h2 className="text-3xl font-oswald uppercase tracking-[1em] text-white/10">The Unseen</h2>
       </div>
     </main>

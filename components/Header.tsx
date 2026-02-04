@@ -44,7 +44,7 @@ const Header: React.FC = () => {
         <Link to="/" className="flex items-center">
           <img
             src={logos[currentLogo]}
-            alt="TURMAHAM"
+            alt="TSUGI"
             className="h-8 md:h-10 object-contain"
           />
         </Link>
@@ -68,7 +68,7 @@ const Header: React.FC = () => {
             onClick={() => setLang(lang === 'en' ? 'ru' : 'en')}
             className="text-[10px] font-black tracking-widest uppercase px-3 py-1.5 border border-white/10 hover:border-white transition-all"
           >
-            {lang === 'en' ? 'RU' : 'EN'}
+            {lang === 'en' ? 'EN' : 'RU'}
           </button>
           
           <Link to="/admin" className="text-zinc-500 hover:text-white transition-colors">
@@ -90,7 +90,7 @@ const Header: React.FC = () => {
             className="fixed inset-0 h-screen bg-black z-[100] flex flex-col p-12"
           >
             <div className="flex justify-between items-center mb-20">
-              <span className="text-2xl font-oswald font-bold tracking-tighter">TURMAHAM</span>
+              <span className="text-2xl font-oswald font-bold tracking-tighter">TSUGI</span>
               <button onClick={() => setIsOpen(false)}><X size={32} /></button>
             </div>
             <div className="flex flex-col space-y-6">
@@ -104,7 +104,7 @@ const Header: React.FC = () => {
                   {link.name}
                 </Link>
               ))}
-              <Link to="/admin" onClick={() => setIsOpen(false)} className="text-xl text-zinc-500 font-oswald uppercase pt-10">Admin Dashboard</Link>
+              {/* <Link to="/admin" onClick={() => setIsOpen(false)} className="text-xl text-zinc-500 font-oswald uppercase pt-10">Admin Dashboard</Link> */}
             </div>
           </motion.nav>
         )}

@@ -78,10 +78,12 @@ export interface TranslationSet {
   common: {
     back: string;
     readMore: string;
+    loading: string;
+    loadError: string;
+    noContent: string;
   };
   home: {
     heroTitle: string;
-    heroSubtitle: string;
     cta: string;
   };
   films: {

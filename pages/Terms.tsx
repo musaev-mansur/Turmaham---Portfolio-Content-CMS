@@ -15,7 +15,7 @@ const Terms: React.FC = () => {
         <section>
           <h2 className="text-xl font-bold text-white uppercase tracking-widest mb-4">1. Digital Content</h2>
           <p>
-            All digital products purchased on Turmaham are non-refundable once the download link has been accessed. 
+            All digital products purchased on Tsugi are non-refundable once the download link has been accessed. 
             By purchasing, you agree that you are receiving a license to use the content, not ownership of the copyright.
           </p>
         </section>
