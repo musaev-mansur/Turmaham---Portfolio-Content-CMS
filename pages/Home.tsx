@@ -23,7 +23,7 @@ const Home: React.FC = () => {
           <img
             src="/img/slide.jpg"
             alt="Hero"
-            className="w-full h-full object-cover grayscale brightness-50"
+            className="w-full h-full object-cover"
           />
         </motion.div>
 
@@ -87,9 +87,20 @@ const Home: React.FC = () => {
         </div>
       </div>
 
-      {/* Second section hint */}
-      <div id="the-unseen" className="h-screen bg-black flex items-center justify-center">
-          <h2 className="text-3xl font-oswald uppercase tracking-[1em] text-white/10">The Unseen</h2>
+      {/* The Unseen — bio + photo */}
+      <div id="the-unseen" className="relative z-30 min-h-screen bg-black flex items-center py-24 px-6">
+        <div className="max-w-7xl mx-auto w-full grid md:grid-cols-2 gap-12 md:gap-16 items-center">
+          <div className="space-y-6 text-zinc-400 text-base md:text-lg leading-relaxed">
+            <p>{t.home.bio1}</p>
+            <p>{t.home.bio2}</p>
+            <p>{t.home.bio3}</p>
+            <p>{t.home.bio4}</p>
+          </div>
+          <div className="aspect-[4/5] bg-zinc-900/50 border border-white/10 min-h-[400px] md:min-h-0">         
+             {/* Placeholder for photo card */}
+             <img src="/img/avatar.png" alt="Photo" className="w-full h-full object-cover" />
+          </div>
+        </div>
       </div>
     </main>
   );

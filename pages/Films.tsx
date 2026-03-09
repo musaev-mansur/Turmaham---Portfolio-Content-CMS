@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { blocksAPI } from '../utils/api';
-import { blocksToItems } from '../utils/dataTransform';
+import { blocksToItems, truncateTitle } from '../utils/dataTransform';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
 
@@ -73,18 +73,16 @@ const Films: React.FC = () => {
             className="cursor-pointer group"
           >
             <div className="aspect-[4/5] bg-zinc-900 relative overflow-hidden border border-white/5 group-hover:border-white/20 transition-all">
-              {item.image ? (
+              {item.image && (
                 <img
                   src={item.image}
                   alt={item.title[lang]}
-                  className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:brightness-100 group-hover:scale-105 transition-all duration-1000"
+                  className="w-full h-full object-cover"
                 />
-              ) : (
-                <div className="w-full h-full flex items-center justify-center text-zinc-600 text-sm uppercase tracking-widest" />
               )}
               <div className="absolute inset-x-0 bottom-0 pt-16 pb-4 px-4 bg-gradient-to-t from-black/90 via-black/50 to-transparent">
                 <h3 className="text-lg font-oswald uppercase tracking-widest font-bold text-white whitespace-pre-wrap line-clamp-2">
-                  {item.title[lang] || '—'}
+                  {truncateTitle(item.title[lang])}
                 </h3>
               </div>
             </div>

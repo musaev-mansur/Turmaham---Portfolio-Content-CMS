@@ -22,14 +22,14 @@ const FlexibleFieldsRenderer: React.FC<Props> = ({ fields, lang, className = '' 
           case 'titleEn':
             if (lang !== 'en') return null;
             return (
-              <h1 key={idx} className="text-5xl font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap">
+              <h1 key={idx} className="text-2xl font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap">
                 {value}
               </h1>
             );
           case 'titleRu':
             if (lang !== 'ru') return null;
             return (
-              <h1 key={idx} className="text-5xl font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap">
+              <h1 key={idx} className="text-2xl font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap">
                 {value}
               </h1>
             );
@@ -55,7 +55,7 @@ const FlexibleFieldsRenderer: React.FC<Props> = ({ fields, lang, className = '' 
                 <img
                   src={value}
                   alt=""
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                  className="w-full h-full object-cover"
                   loading="lazy"
                   onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                 />
@@ -70,7 +70,7 @@ const FlexibleFieldsRenderer: React.FC<Props> = ({ fields, lang, className = '' 
                 <img
                   src={value}
                   alt=""
-                  className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                  className="w-full h-full object-cover"
                   loading="lazy"
                   onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                 />

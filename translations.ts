@@ -21,6 +21,10 @@ export const translations: Record<'en' | 'ru', TranslationSet> = {
     home: {
       heroTitle: 'TSUGI',
       cta: 'About Me',
+      bio1: 'My name is Tsugi, and I am a Chechen multimedia artist and curator.',
+      bio2: 'My practice is focused primarily on film directing, which I expand through video art, photography, performance, and installation.',
+      bio3: 'My artistic method is built on the processing of cultural and personal trauma, as well as the exploration of the "difficult heritage" problematic. The key vectors of my activity are questions of national identity within a decolonial lens, where the role of the witness is of fundamental importance.',
+      bio4: 'It is important to me that the process of forming Chechen cinema proceeds not only through the archaic and direct reflection of Vainakh traditions, but also through a synthesis of current reality, historical experience, probable futures, and the relevant language of contemporary art.',
     },
     films: {
       versions: 'Select Version',
@@ -67,6 +71,10 @@ export const translations: Record<'en' | 'ru', TranslationSet> = {
     home: {
       heroTitle: 'TSUGI',
       cta: 'Обо Мне',
+      bio1: 'Меня зовут Цуги, я чеченский мультимедийный художник и куратор.',
+      bio2: 'В основном я занимаюсь режиссурой фильмов, но также расширяю свою деятельность за счет видеоарта, фотографии, перформанса и инсталляций.',
+      bio3: 'Мой художественный метод основан на осмыслении культурных и личных травм, а также на исследовании проблемы «сложного наследия». Ключевыми векторами моей деятельности являются вопросы национальной идентичности в деколониальном контексте, где роль свидетеля имеет основополагающее значение.',
+      bio4: 'Для меня важно, чтобы процесс формирования чеченского кинематографа происходил не только через архаичное и прямое отражение вайнахских традиций, но и через синтез современной реальности, исторического опыта, вероятных вариантов будущего и актуального языка современного искусства.',
     },
     films: {
       versions: 'Выбор версии',

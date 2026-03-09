@@ -1,6 +1,12 @@
 import { Language } from '../types';
 import { ContentBlock, parseBlockData, FlexibleField } from './api';
 
+/** Обрезает заголовок: если длина > max, возвращает первые max символов + … */
+export function truncateTitle(s: string | undefined, max = 20): string {
+  const t = s?.trim() ?? '';
+  return t.length > max ? t.slice(0, max) + '…' : t || '—';
+}
+
 function getFirstByType(fields: FlexibleField[], type: string): string {
   const f = fields.find((x) => x.type === type);
   return f?.value ?? '';

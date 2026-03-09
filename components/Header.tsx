@@ -14,7 +14,7 @@ const Header: React.FC = () => {
   const location = useLocation();
   const t = translations[lang];
   
-  const logos = ['/img/logo-white.png', '/img/logo-open.png'];
+  const logos = ['/img/logo-2.png', '/img/logo-1.png'];
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 50);

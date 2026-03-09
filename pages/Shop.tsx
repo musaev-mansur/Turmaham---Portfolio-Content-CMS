@@ -31,7 +31,7 @@ const Shop: React.FC = () => {
                 <img
                   src={product.image}
                   alt={product.title[lang]}
-                  className="w-full h-full object-cover grayscale brightness-75 group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                  className="w-full h-full object-cover"
                 />
               </div>
               <h2 className="text-xl font-oswald uppercase tracking-widest font-bold mb-2">

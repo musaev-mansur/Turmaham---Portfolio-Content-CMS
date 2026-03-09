@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { blocksAPI } from '../utils/api';
-import { blocksToItems } from '../utils/dataTransform';
+import { blocksToItems, truncateTitle } from '../utils/dataTransform';
 import { toEmbedUrl } from '../utils/youtube';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
@@ -83,22 +83,20 @@ const Projects: React.FC = () => {
                     </motion.div>
                   </div>
                   <h2 className="text-2xl font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap truncate">
-                    {item.title[lang]}
+                    {truncateTitle(item.title[lang])}
                   </h2>
                 </div>
-                <div className="flex-shrink-0 ml-4">
-                  <div className="w-32 h-20 bg-zinc-800 overflow-hidden border border-white/5">
-                    {item.image ? (
+                {item.image && (
+                  <div className="flex-shrink-0 ml-4">
+                    <div className="w-32 h-20 overflow-hidden border border-white/5">
                       <img
                         src={item.image}
                         alt={item.title[lang]}
-                        className="w-full h-full object-cover grayscale group-hover:grayscale-0 transition-all duration-500"
+                        className="w-full h-full object-cover"
                       />
-                    ) : (
-                      <div className="w-full h-full flex items-center justify-center text-zinc-600 text-[10px]">—</div>
-                    )}
+                    </div>
                   </div>
-                </div>
+                )}
               </button>
               <AnimatePresence initial={false}>
                 {isOpen && (
@@ -119,11 +117,11 @@ const Projects: React.FC = () => {
                               <img
                                 src={item.image}
                                 alt={item.title[lang]}
-                                className="w-full max-h-[60vh] object-cover grayscale hover:grayscale-0 transition-all duration-700 border border-white/5"
+                                className="w-full max-h-[60vh] object-cover border border-white/5"
                               />
                             )}
                             <h3 className="text-xl font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap">
-                              {item.title[lang]}
+                              {truncateTitle(item.title[lang])}
                             </h3>
                             <p className="text-zinc-400 leading-relaxed text-lg whitespace-pre-wrap">
                               {item.description[lang]}

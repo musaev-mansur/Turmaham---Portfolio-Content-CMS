@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { blocksAPI, ContentBlock, parseBlockData, FlexibleField, FlexibleFieldType, uploadImageToImgBB } from '../utils/api';
+import { truncateTitle } from '../utils/dataTransform';
 import { Plus, Trash2, Edit3, Save, X, Lock, ArrowUp, ArrowDown, Upload } from 'lucide-react';
 
 const SECTIONS = ['films', 'projects', 'works'] as const;
@@ -364,14 +365,12 @@ const Admin: React.FC = () => {
                       <ArrowDown size={14} />
                     </button>
                   </div>
-                  {img ? (
-                    <img src={img} alt="" className="w-24 h-24 object-cover grayscale flex-shrink-0" />
-                  ) : (
-                    <div className="w-24 h-24 bg-zinc-800 flex-shrink-0 flex items-center justify-center text-zinc-500 text-xs">No img</div>
+                  {img && (
+                    <img src={img} alt="" className="w-24 h-24 object-cover flex-shrink-0" />
                   )}
                   <div className="flex-1 min-w-0">
                     <h4 className="font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap truncate">
-                      {title}
+                      {truncateTitle(title)}
                     </h4>
                   </div>
                   <div className="flex gap-2 flex-shrink-0">

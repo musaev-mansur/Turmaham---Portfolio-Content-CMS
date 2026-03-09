@@ -34,7 +34,7 @@ const ContentBlockRenderer: React.FC<Props> = ({ blocks, lang }) => {
               <img
                 src={data.url}
                 alt={data.alt || ''}
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                className="w-full h-full object-cover"
               />
             </div>
             {data.caption && (
@@ -96,7 +96,7 @@ const ContentBlockRenderer: React.FC<Props> = ({ blocks, lang }) => {
                   <img
                     src={img}
                     alt={`Gallery image ${imgIndex + 1}`}
-                    className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                    className="w-full h-full object-cover"
                   />
                 </div>
               ))}

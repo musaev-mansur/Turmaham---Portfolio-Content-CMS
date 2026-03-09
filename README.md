@@ -1,4 +1,4 @@
-# Turmaham Portfolio & Content CMS
+# Tsugi Portfolio & Content CMS
 
 React frontend and Express API for a portfolio site with flexible content blocks (films, projects, works). Includes an admin panel for managing content and optional image uploads via ImgBB.
 
@@ -13,7 +13,6 @@ React frontend and Express API for a portfolio site with flexible content blocks
 - **Public pages:** Home, Films, Projects, Works (EN/RU), with detail pages for films
 - **Flexible content:** Add and reorder fields per block (titles, descriptions, images, YouTube) in any order
 - **Admin panel:** Password-protected content management; upload images to ImgBB or paste URLs
-- **Custom cursor** on the main site (disabled in admin)
 
 ## Prerequisites
 

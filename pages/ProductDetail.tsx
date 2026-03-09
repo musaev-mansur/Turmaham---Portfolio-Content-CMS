@@ -55,7 +55,7 @@ const ProductDetail: React.FC = () => {
           <img
             src={product.image}
             alt={product.title[lang]}
-            className="w-full h-full object-cover grayscale brightness-75"
+            className="w-full h-full object-cover"
           />
         </div>
 

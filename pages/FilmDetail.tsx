@@ -106,7 +106,7 @@ const FilmDetail: React.FC = () => {
               <img
                 src={image}
                 alt=""
-                className="w-full h-full object-cover grayscale hover:grayscale-0 transition-all duration-700"
+                className="w-full h-full object-cover"
               />
             </div>
           )}

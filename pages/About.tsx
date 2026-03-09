@@ -32,7 +32,7 @@ const About: React.FC = () => {
           <img
             src="https://picsum.photos/id/105/800/1000"
             alt="Vision"
-            className="w-full h-full object-cover grayscale brightness-75 hover:grayscale-0 transition-all duration-1000"
+            className="w-full h-full object-cover"
           />
         </div>
       </motion.div>
@@ -47,7 +47,7 @@ const About: React.FC = () => {
           <img
             src="https://picsum.photos/id/106/1200/800"
             alt="Process"
-            className="w-full h-full object-cover grayscale brightness-75 hover:grayscale-0 transition-all duration-1000"
+            className="w-full h-full object-cover"
           />
         </div>
         <div className="order-1 lg:order-2">
