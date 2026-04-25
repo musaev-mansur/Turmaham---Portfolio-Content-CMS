@@ -1,0 +1,98 @@
+import React, { useState, useEffect } from 'react';
+import { useParams, useNavigate } from 'react-router-dom';
+import { blocksAPI, parseBlockData } from '../utils/api';
+import { toEmbedUrl } from '../utils/youtube';
+import { useLanguage } from '../context/LanguageContext';
+import { translations } from '../translations';
+import { ArrowLeft } from 'lucide-react';
+import FlexibleFieldsRenderer from '../components/FlexibleFieldsRenderer';
+
+const ProjectDetail: React.FC = () => {
+  const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
+  const { lang } = useLanguage();
+  const t = translations[lang];
+  const [block, setBlock] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      if (!id) return;
+      try {
+        const b = await blocksAPI.getById(id);
+        setBlock(b);
+      } catch (error) {
+        console.error('Error loading project block:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [id]);
+
+  if (loading) {
+    return (
+      <div className="pt-32 pb-20 px-6 max-w-5xl mx-auto">
+        <p className="text-center text-zinc-500">{t.common.loading}</p>
+      </div>
+    );
+  }
+
+  if (!block) {
+    return (
+      <div className="pt-32 pb-20 px-6 max-w-5xl mx-auto">
+        <p className="text-center text-zinc-500">Not found</p>
+      </div>
+    );
+  }
+
+  const data = parseBlockData(block);
+  const hasFlexibleFields = data.fields && Array.isArray(data.fields) && data.fields.length > 0;
+
+  if (hasFlexibleFields) {
+    return (
+      <div className="pt-32 pb-20 px-6 max-w-5xl mx-auto">
+        <button
+          onClick={() => navigate('/projects')}
+          className="flex items-center space-x-2 text-zinc-500 hover:text-white transition-colors mb-8 uppercase tracking-widest text-xs font-bold"
+        >
+          <ArrowLeft size={16} />
+          <span>{t.common.back}</span>
+        </button>
+        <FlexibleFieldsRenderer fields={data.fields as any} lang={lang} />
+      </div>
+    );
+  }
+
+  const title = lang === 'ru' ? (data.titleRus || data.titleEng) : (data.titleEng || data.titleRus);
+  const description = lang === 'ru' ? (data.descriptionRus || data.descriptionEng) : (data.descriptionEng || data.descriptionRus);
+  const image = lang === 'en' ? (data.imageEng || data.imageRus) : (data.imageRus || data.imageEng);
+  const youtube = toEmbedUrl(data.youtubeUrl1 || data.youtubeUrl || '');
+
+  return (
+    <div className="pt-32 pb-20 px-6 max-w-5xl mx-auto">
+      <button
+        onClick={() => navigate('/projects')}
+        className="flex items-center space-x-2 text-zinc-500 hover:text-white transition-colors mb-8 uppercase tracking-widest text-xs font-bold"
+      >
+        <ArrowLeft size={16} />
+        <span>{t.common.back}</span>
+      </button>
+
+      <h1 className="text-5xl font-oswald uppercase tracking-widest font-bold mb-8 whitespace-pre-wrap">{title}</h1>
+      {image && (
+        <div className="mb-8 aspect-video w-full bg-zinc-900 overflow-hidden border border-white/5">
+          <img src={image} alt="" className="w-full h-full object-cover" />
+        </div>
+      )}
+      <p className="text-zinc-400 leading-relaxed text-lg whitespace-pre-wrap">{description}</p>
+      {youtube && (
+        <div className="mt-8 aspect-video w-full bg-black border border-white/5">
+          <iframe src={youtube} className="w-full h-full" allow="autoplay; fullscreen" title={title} />
+        </div>
+      )}
+    </div>
+  );
+};
+
+export default ProjectDetail;

@@ -1,20 +1,18 @@
 import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
 import { blocksAPI } from '../utils/api';
 import { blocksToItems, truncateTitle } from '../utils/dataTransform';
-import { toEmbedUrl } from '../utils/youtube';
 import { useLanguage } from '../context/LanguageContext';
 import { translations } from '../translations';
-import { ChevronRight } from 'lucide-react';
-import FlexibleFieldsRenderer from '../components/FlexibleFieldsRenderer';
 
 const Works: React.FC = () => {
   const { lang } = useLanguage();
   const t = translations[lang];
+  const navigate = useNavigate();
   const [items, setItems] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
-  const [openId, setOpenId] = useState<string | null>(null);
 
   useEffect(() => {
     setError(null);
@@ -58,93 +56,28 @@ const Works: React.FC = () => {
           {t.common.noContent}
         </p>
       ) : (
-      <div className="space-y-2">
+      <div className="space-y-1">
         {items.map((item, idx) => {
-          const isOpen = openId === item.id;
           return (
-            <motion.div
+            <motion.button
               key={item.id}
               initial={{ opacity: 0, x: -30 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: idx * 0.1 }}
-              className="border border-white/10 overflow-hidden bg-zinc-900/50"
+              onClick={() => navigate(`/works/${item.id}`)}
+              className="w-full py-4 text-left border-b border-white/10 hover:text-white transition-colors"
             >
-              <button
-                onClick={() => setOpenId(isOpen ? null : item.id)}
-                className="w-full flex justify-between items-center p-6 text-left hover:bg-white/5 transition-colors group"
-              >
+              <div className="flex justify-between items-center gap-4">
                 <div className="flex items-center space-x-6 flex-1 min-w-0">
-                  <div className="flex-shrink-0">
-                    <motion.div
-                      animate={{ rotate: isOpen ? 90 : 0 }}
-                      transition={{ duration: 0.3 }}
-                    >
-                      <ChevronRight size={24} className="text-zinc-500 group-hover:text-white transition-colors" />
-                    </motion.div>
-                  </div>
-                  <h2 className="text-2xl font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap truncate">
-                    {truncateTitle(item.title[lang])}
+                  <h2 className="text-2xl font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap truncate text-zinc-300">
+                    {truncateTitle(item.title[lang], 42)}
                   </h2>
                 </div>
-                {item.image && (
-                  <div className="flex-shrink-0 ml-4">
-                    <div className="w-32 h-20 overflow-hidden border border-white/5">
-                      <img
-                        src={item.image}
-                        alt={item.title[lang]}
-                        className="w-full h-full object-cover"
-                      />
-                    </div>
-                  </div>
-                )}
-              </button>
-              <AnimatePresence initial={false}>
-                {isOpen && (
-                  <motion.div
-                    initial={{ height: 0, opacity: 0 }}
-                    animate={{ height: 'auto', opacity: 1 }}
-                    exit={{ height: 0, opacity: 0 }}
-                    transition={{ duration: 0.5, ease: [0.04, 0.62, 0.23, 0.98] }}
-                    className="overflow-hidden"
-                  >
-                    <div className="p-6 flex flex-row flex-nowrap items-start gap-8 border-t border-white/10">
-                      <div className="flex-shrink basis-[75%] space-y-4 min-w-0">
-                        {item.fields && item.fields.length > 0 ? (
-                          <FlexibleFieldsRenderer fields={item.fields} lang={lang} className="text-lg" />
-                        ) : (
-                          <>
-                            {item.image && (
-                              <img
-                                src={item.image}
-                                alt={item.title[lang]}
-                                className="w-full max-h-[60vh] object-cover border border-white/5"
-                              />
-                            )}
-                            <h3 className="text-xl font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap">
-                              {truncateTitle(item.title[lang])}
-                            </h3>
-                            <p className="text-zinc-400 leading-relaxed text-lg whitespace-pre-wrap">
-                              {item.description[lang]}
-                            </p>
-                            {item.videoUrl && (
-                              <div className="aspect-video w-full bg-black border border-white/5">
-                                <iframe
-                                  src={toEmbedUrl(item.videoUrl)}
-                                  className="w-full h-full"
-                                  allow="autoplay; fullscreen"
-                                  title={item.title[lang]}
-                                />
-                              </div>
-                            )}
-                          </>
-                        )}
-                        <div className="w-20 h-px bg-white/20" />
-                      </div>
-                    </div>
-                  </motion.div>
-                )}
-              </AnimatePresence>
-            </motion.div>
+                <span className="text-[10px] uppercase tracking-[0.35em] text-zinc-500 whitespace-nowrap">
+                  Open
+                </span>
+              </div>
+            </motion.button>
           );
         })}
       </div>

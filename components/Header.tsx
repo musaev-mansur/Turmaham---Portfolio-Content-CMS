@@ -41,12 +41,15 @@ const Header: React.FC = () => {
       scrolled ? 'bg-black/90 py-3 backdrop-blur-md border-b border-white/5' : 'bg-transparent py-6'
     }`}>
       <div className="max-w-screen-2xl mx-auto px-8 flex justify-between items-center">
-        <Link to="/" className="flex items-center">
+        <Link to="/" className="flex items-center gap-3">
           <img
             src={logos[currentLogo]}
             alt="TSUGI"
             className="h-8 md:h-10 object-contain"
           />
+          <span className="text-lg md:text-2xl font-oswald font-black tracking-[0.2em] leading-none">
+            TSUGI
+          </span>
         </Link>
 
         <nav className="hidden lg:flex space-x-10 items-center">

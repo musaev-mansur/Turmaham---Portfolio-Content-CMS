@@ -8,7 +8,9 @@ import Home from './pages/Home';
 import Films from './pages/Films';
 import FilmDetail from './pages/FilmDetail';
 import Projects from './pages/Projects';
+import ProjectDetail from './pages/ProjectDetail';
 import Works from './pages/Works';
+import WorkDetail from './pages/WorkDetail';
 import Admin from './pages/Admin';
 import { AnimatePresence, motion } from 'framer-motion';
 
@@ -34,7 +36,9 @@ const AppRoutes = () => {
               <Route path="/films" element={<Films />} />
               <Route path="/films/:id" element={<FilmDetail />} />
               <Route path="/projects" element={<Projects />} />
+              <Route path="/projects/:id" element={<ProjectDetail />} />
               <Route path="/works" element={<Works />} />
+              <Route path="/works/:id" element={<WorkDetail />} />
               <Route path="/admin" element={<Admin />} />
             </Routes>
           </motion.div>

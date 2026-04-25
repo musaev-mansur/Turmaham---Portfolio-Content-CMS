@@ -1,13 +1,9 @@
 
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { useLanguage } from '../context/LanguageContext';
-import { translations } from '../translations';
+import { Mail, Instagram } from 'lucide-react';
 
 const Footer: React.FC = () => {
-  const { lang } = useLanguage();
-  const t = translations[lang];
-
   return (
     <footer className="border-t border-white/10 py-12 px-6 bg-black">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center space-y-8 md:space-y-0">
@@ -20,9 +16,23 @@ const Footer: React.FC = () => {
           <span className="cursor-default">© {new Date().getFullYear()} ALL RIGHTS RESERVED</span>
         </div>
 
-        <div className="flex space-x-6 items-center">
-          {/* <span className="w-8 h-[1px] bg-white/20" />
-          <span className="text-[10px] uppercase tracking-widest text-zinc-500"></span> */}
+        <div className="flex flex-col items-center md:items-end gap-3 text-sm text-zinc-400">
+          <a
+            href="mailto:tsugivu@gmail.com"
+            className="flex items-center gap-2 hover:text-white transition-colors"
+          >
+            <Mail size={15} />
+            <span>tsugivu@gmail.com</span>
+          </a>
+          <a
+            href="https://instagram.com/tsugi.fr"
+            target="_blank"
+            rel="noreferrer"
+            className="flex items-center gap-2 hover:text-white transition-colors"
+          >
+            <Instagram size={15} />
+            <span>@tsugi.fr</span>
+          </a>
         </div>
       </div>
     </footer>
