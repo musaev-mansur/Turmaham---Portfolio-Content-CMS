@@ -38,7 +38,7 @@ const Header: React.FC = () => {
 
   return (
     <header className={`fixed top-0 left-0 w-full z-50 transition-all duration-700 ${
-      scrolled ? 'bg-black/90 py-3 backdrop-blur-md border-b border-white/5' : 'bg-transparent py-6'
+      scrolled ? 'bg-black/90 py-3 backdrop-blur-md' : 'bg-transparent py-6'
     }`}>
       <div className="max-w-screen-2xl mx-auto px-8 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-3">
