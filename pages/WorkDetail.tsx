@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { blocksAPI, parseBlockData } from '../utils/api';
 import { toEmbedUrl } from '../utils/youtube';
 import { useLanguage } from '../context/LanguageContext';
@@ -60,6 +60,17 @@ const WorkDetail: React.FC = () => {
           <span>{t.common.back}</span>
         </button>
         <FlexibleFieldsRenderer fields={data.fields as any} lang={lang} />
+        {block.author && (
+          <div className="mt-10 pt-6 border-t border-white/10">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-zinc-500 mb-2">Author</p>
+            <Link
+              to={`/authors/${block.author.id}`}
+              className="text-sm uppercase tracking-widest text-zinc-300 hover:text-white transition-colors"
+            >
+              {block.author.name}
+            </Link>
+          </div>
+        )}
       </div>
     );
   }
@@ -80,6 +91,14 @@ const WorkDetail: React.FC = () => {
       </button>
 
       <h1 className="text-5xl font-oswald uppercase tracking-widest font-bold mb-8 whitespace-pre-wrap">{title}</h1>
+      {block.author && (
+        <Link
+          to={`/authors/${block.author.id}`}
+          className="inline-block mb-8 text-xs uppercase tracking-widest text-zinc-500 hover:text-white transition-colors"
+        >
+          {block.author.name}
+        </Link>
+      )}
       {image && (
         <div className="mb-8 aspect-video w-full bg-zinc-900 overflow-hidden border border-white/5">
           <img src={image} alt="" className="w-full h-full object-cover" />
@@ -89,6 +108,17 @@ const WorkDetail: React.FC = () => {
       {youtube && (
         <div className="mt-8 aspect-video w-full bg-black border border-white/5">
           <iframe src={youtube} className="w-full h-full" allow="autoplay; fullscreen" title={title} />
+        </div>
+      )}
+      {block.author && (
+        <div className="mt-10 pt-6 border-t border-white/10">
+          <p className="text-[10px] uppercase tracking-[0.3em] text-zinc-500 mb-2">Author</p>
+          <Link
+            to={`/authors/${block.author.id}`}
+            className="text-sm uppercase tracking-widest text-zinc-300 hover:text-white transition-colors"
+          >
+            {block.author.name}
+          </Link>
         </div>
       )}
     </div>

@@ -69,9 +69,22 @@ const Works: React.FC = () => {
             >
               <div className="flex justify-between items-center gap-4">
                 <div className="flex items-center space-x-6 flex-1 min-w-0">
-                  <h2 className="text-2xl font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap truncate text-zinc-300">
-                    {truncateTitle(item.title[lang], 42)}
-                  </h2>
+                  <div className="min-w-0">
+                    <h2 className="text-2xl font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap truncate text-zinc-300">
+                      {truncateTitle(item.title[lang], 42)}
+                    </h2>
+                    {item.author && (
+                      <span
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/authors/${item.author.id}`);
+                        }}
+                        className="inline-block mt-1 text-[10px] uppercase tracking-[0.3em] text-zinc-500 hover:text-white transition-colors"
+                      >
+                        {item.author.name}
+                      </span>
+                    )}
+                  </div>
                 </div>
                 <span className="text-[10px] uppercase tracking-[0.35em] text-zinc-500 whitespace-nowrap">
                   Open

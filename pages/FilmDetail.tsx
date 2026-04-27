@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import { blocksAPI, parseBlockData } from '../utils/api';
 import { toEmbedUrl } from '../utils/youtube';
 import { useLanguage } from '../context/LanguageContext';
@@ -60,6 +60,17 @@ const FilmDetail: React.FC = () => {
           <span>{t.common.back}</span>
         </button>
         <FlexibleFieldsRenderer fields={data.fields as any} lang={lang} />
+        {block.author && (
+          <div className="mt-10 pt-6 border-t border-white/10">
+            <p className="text-[10px] uppercase tracking-[0.3em] text-zinc-500 mb-2">Author</p>
+            <Link
+              to={`/authors/${block.author.id}`}
+              className="text-sm uppercase tracking-widest text-zinc-300 hover:text-white transition-colors"
+            >
+              {block.author.name}
+            </Link>
+          </div>
+        )}
       </div>
     );
   }
@@ -83,6 +94,14 @@ const FilmDetail: React.FC = () => {
       <h1 className="text-5xl font-oswald uppercase tracking-widest font-bold mb-8 whitespace-pre-wrap">
         {title}
       </h1>
+      {block.author && (
+        <Link
+          to={`/authors/${block.author.id}`}
+          className="inline-block mb-8 text-xs uppercase tracking-widest text-zinc-500 hover:text-white transition-colors"
+        >
+          {block.author.name}
+        </Link>
+      )}
 
       {youtube1 && (
         <div className="aspect-video w-full bg-black mb-12 shadow-2xl">
@@ -125,6 +144,17 @@ const FilmDetail: React.FC = () => {
           </div>
         )}
       </div>
+      {block.author && (
+        <div className="mt-10 pt-6 border-t border-white/10">
+          <p className="text-[10px] uppercase tracking-[0.3em] text-zinc-500 mb-2">Author</p>
+          <Link
+            to={`/authors/${block.author.id}`}
+            className="text-sm uppercase tracking-widest text-zinc-300 hover:text-white transition-colors"
+          >
+            {block.author.name}
+          </Link>
+        </div>
+      )}
     </div>
   );
 };

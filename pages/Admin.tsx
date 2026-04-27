@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from 'react';
-import { blocksAPI, ContentBlock, parseBlockData, FlexibleField, FlexibleFieldType, uploadImageToImgBB } from '../utils/api';
+import { blocksAPI, authorsAPI, Author, ContentBlock, parseBlockData, FlexibleField, FlexibleFieldType, uploadImageToImgBB } from '../utils/api';
 import { truncateTitle } from '../utils/dataTransform';
 import { Plus, Trash2, Edit3, Save, X, Lock, ArrowUp, ArrowDown, Upload } from 'lucide-react';
 
@@ -25,6 +25,9 @@ const Admin: React.FC = () => {
   const [password, setPassword] = useState('');
   const [editingId, setEditingId] = useState<string | null>(null);
   const [fields, setFields] = useState<FlexibleField[]>([]);
+  const [authors, setAuthors] = useState<Author[]>([]);
+  const [selectedAuthorId, setSelectedAuthorId] = useState<string>('');
+  const [newAuthorName, setNewAuthorName] = useState('');
   const [newFieldType, setNewFieldType] = useState<FlexibleFieldType>('titleEn');
   const [uploadingIndex, setUploadingIndex] = useState<number | null>(null);
   const fileInputRefs = useRef<Record<number, HTMLInputElement | null>>({});
@@ -42,9 +45,19 @@ const Admin: React.FC = () => {
     }
   };
 
+  const loadAuthors = async () => {
+    try {
+      const list = await authorsAPI.getAll();
+      setAuthors(list);
+    } catch {
+      // ignore silently, authors are optional for editing
+    }
+  };
+
   useEffect(() => {
     if (isAuthenticated) {
       loadBlocks();
+      loadAuthors();
     }
   }, [isAuthenticated, section]);
 
@@ -57,6 +70,31 @@ const Admin: React.FC = () => {
   const resetForm = () => {
     setEditingId(null);
     setFields([]);
+    setSelectedAuthorId('');
+  };
+
+  const slugify = (s: string) =>
+    s
+      .toLowerCase()
+      .trim()
+      .replace(/[^a-z0-9а-яё]+/gi, '-')
+      .replace(/^-+|-+$/g, '');
+
+  const handleAddAuthor = async () => {
+    const name = newAuthorName.trim();
+    if (!name) return;
+    setLoading(true);
+    setError(null);
+    try {
+      const created = await authorsAPI.create({ name, slug: slugify(name) });
+      setAuthors((prev) => [...prev, created].sort((a, b) => a.name.localeCompare(b.name)));
+      setSelectedAuthorId(created.id);
+      setNewAuthorName('');
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to create author');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const addField = () => {
@@ -113,7 +151,7 @@ const Admin: React.FC = () => {
     setLoading(true);
     setError(null);
     try {
-      const payload = { section, type: 'item' as const, data: { fields } };
+      const payload = { section, type: 'item' as const, authorId: selectedAuthorId || null, data: { fields } };
       if (editingId) {
         await blocksAPI.update(editingId, payload);
       } else {
@@ -145,6 +183,7 @@ const Admin: React.FC = () => {
 
   const startEdit = (block: ContentBlock) => {
     setEditingId(block.id);
+    setSelectedAuthorId(block.authorId || '');
     const data = parseBlockData(block);
     if (data.fields && Array.isArray(data.fields)) {
       setFields(data.fields as FlexibleField[]);
@@ -233,6 +272,38 @@ const Admin: React.FC = () => {
           <p className="text-zinc-500 text-xs uppercase tracking-widest">
             Добавляйте поля в любом порядке и количестве
           </p>
+
+          <div className="space-y-2">
+            <label className="text-xs uppercase tracking-widest text-zinc-400">Автор поста</label>
+            <select
+              value={selectedAuthorId}
+              onChange={(e) => setSelectedAuthorId(e.target.value)}
+              className="w-full bg-black border border-white/10 p-2 text-sm"
+            >
+              <option value="">Без автора</option>
+              {authors.map((a) => (
+                <option key={a.id} value={a.id}>
+                  {a.name}
+                </option>
+              ))}
+            </select>
+            <div className="flex gap-2">
+              <input
+                value={newAuthorName}
+                onChange={(e) => setNewAuthorName(e.target.value)}
+                placeholder="Новый автор"
+                className="flex-1 bg-black border border-white/10 p-2 text-sm"
+              />
+              <button
+                type="button"
+                onClick={handleAddAuthor}
+                disabled={loading || !newAuthorName.trim()}
+                className="px-3 border border-white/10 hover:border-white text-xs uppercase tracking-widest disabled:opacity-50"
+              >
+                + Автор
+              </button>
+            </div>
+          </div>
 
           <div className="flex gap-2 items-center">
             <select
@@ -372,6 +443,11 @@ const Admin: React.FC = () => {
                     <h4 className="font-oswald uppercase tracking-widest font-bold whitespace-pre-wrap truncate">
                       {truncateTitle(title)}
                     </h4>
+                    {block.author?.name && (
+                      <p className="text-xs uppercase tracking-widest text-zinc-500 mt-1">
+                        Автор: {block.author.name}
+                      </p>
+                    )}
                   </div>
                   <div className="flex gap-2 flex-shrink-0">
                     <button onClick={() => startEdit(block)} disabled={loading} className="p-3 border border-white/10 hover:text-white transition-colors disabled:opacity-50">

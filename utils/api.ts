@@ -53,15 +53,26 @@ export interface ContentBlock {
   section: string;
   order: number;
   type: string;
+  authorId?: string | null;
+  author?: Author | null;
   data: string;
   createdAt?: string;
   updatedAt?: string;
 }
 
+export interface Author {
+  id: string;
+  name: string;
+  slug: string;
+  bio?: string | null;
+}
+
 // Единственный API: блоки контента
 export const blocksAPI = {
-  getBySection: async (section: string): Promise<ContentBlock[]> => {
-    const response = await fetch(`${API_BASE_URL}/blocks?section=${encodeURIComponent(section)}`);
+  getBySection: async (section: string, authorId?: string): Promise<ContentBlock[]> => {
+    const params = new URLSearchParams({ section });
+    if (authorId) params.set('authorId', authorId);
+    const response = await fetch(`${API_BASE_URL}/blocks?${params.toString()}`);
     if (!response.ok) throw new Error('Failed to fetch blocks');
     return response.json();
   },
@@ -78,7 +89,7 @@ export const blocksAPI = {
     return response.json();
   },
 
-  create: async (payload: { section: string; order?: number; type?: string; data: ContentBlockPayload }): Promise<ContentBlock> => {
+  create: async (payload: { section: string; order?: number; type?: string; authorId?: string | null; data: ContentBlockPayload }): Promise<ContentBlock> => {
     const response = await fetch(`${API_BASE_URL}/blocks`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -88,7 +99,7 @@ export const blocksAPI = {
     return response.json();
   },
 
-  update: async (id: string, payload: Partial<{ section: string; order: number; type: string; data: ContentBlockPayload }>): Promise<ContentBlock> => {
+  update: async (id: string, payload: Partial<{ section: string; order: number; type: string; authorId: string | null; data: ContentBlockPayload }>): Promise<ContentBlock> => {
     const response = await fetch(`${API_BASE_URL}/blocks/${id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -103,6 +114,28 @@ export const blocksAPI = {
       method: 'DELETE',
     });
     if (!response.ok) throw new Error('Failed to delete block');
+  },
+};
+
+export const authorsAPI = {
+  getAll: async (): Promise<Author[]> => {
+    const response = await fetch(`${API_BASE_URL}/authors`);
+    if (!response.ok) throw new Error('Failed to fetch authors');
+    return response.json();
+  },
+  getById: async (id: string): Promise<Author> => {
+    const response = await fetch(`${API_BASE_URL}/authors/${id}`);
+    if (!response.ok) throw new Error('Failed to fetch author');
+    return response.json();
+  },
+  create: async (payload: { name: string; slug: string; bio?: string }): Promise<Author> => {
+    const response = await fetch(`${API_BASE_URL}/authors`, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload),
+    });
+    if (!response.ok) throw new Error('Failed to create author');
+    return response.json();
   },
 };
 
